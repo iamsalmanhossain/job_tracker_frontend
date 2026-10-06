@@ -1,9 +1,5 @@
-import React from 'react'
+﻿import Login from "@/components/auth/Login";
 
-const Login = () => {
-  return (
-    <div>login</div>
-  )
+export default function LoginPage() {
+  return <Login />;
 }
-
-export default Login
