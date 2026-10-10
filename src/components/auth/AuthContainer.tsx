@@ -253,7 +253,7 @@ export default function AuthContainer({ initialMode = "login" }: { initialMode?:
     <div className="min-h-screen w-full flex items-center justify-center bg-[#F6F8F6] dark:bg-[#0D140F] p-4 sm:p-8 lg:overflow-hidden lg:fixed lg:inset-0">
       {/* Back to Home button floating outside */}
       <Link href="/" className="absolute top-6 left-6 z-50 inline-flex items-center text-sm font-medium text-[#1C3627]/60 dark:text-[#A3B18A]/60 hover:text-[#1C3627] dark:hover:text-[#A3B18A] transition-colors">
-        <ArrowLeft className="w-4 h-4 mr-2" />
+        <ArrowLeft className="w-4 h-4 mr-2 " />
         Back to home
       </Link>
 
