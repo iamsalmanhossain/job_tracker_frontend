@@ -1,80 +1,108 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { LayoutDashboard, BellRing, PieChart, ShieldCheck, Smartphone, Bookmark } from "lucide-react"
-
-const features = [
-  {
-    icon: <LayoutDashboard className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Organize Applications",
-    description: "Keep all your applications in one place with real-time status updates."
-  },
-  {
-    icon: <BellRing className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Smart Reminders",
-    description: "Never miss a follow-up or interview with automated reminders and calendar sync."
-  },
-  {
-    icon: <PieChart className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Job Insights",
-    description: "Get valuable insights on your progress, response rates and recruiter activity."
-  },
-  {
-    icon: <Bookmark className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Save Interesting Jobs",
-    description: "Bookmark jobs for later and build your dream job list."
-  },
-  {
-    icon: <ShieldCheck className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Privacy First",
-    description: "Your data stays yours. We never share your information with third parties."
-  },
-  {
-    icon: <Smartphone className="w-6 h-6 text-green-600 dark:text-green-400" />,
-    title: "Multi-Device Sync",
-    description: "Access your job tracker anytime, anywhere — on any device."
-  }
-]
+import { Briefcase, MessageSquare, Star } from "lucide-react"
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 md:py-32 bg-secondary/30 text-foreground relative">
+    <section id="features" className="py-24 md:py-32 bg-background text-foreground relative">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row gap-12 justify-between mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-xl">
-            <div className="text-sm font-semibold text-green-600 dark:text-green-500 mb-2">02 — Why JobTracker?</div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">More Than Just a Job Tracker</h2>
-            <p className="text-muted-foreground text-lg">
-              We built JobTracker with one goal — to make your job search simpler, smarter and more effective. Everything you need, from tracking to insights, in one powerful platform.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight">Big ambitions.<br/>One clear picture.</h2>
           </div>
-          <div className="flex-1 flex justify-end md:items-end">
-            <div className="relative">
-              <span className="font-handwriting text-2xl text-muted-foreground transform -rotate-6 inline-block">Smarter tools. Better opportunities.</span>
-              <svg className="absolute -bottom-4 -right-8 w-12 h-12 text-muted-foreground opacity-50 transform rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </div>
+          <div className="max-w-xs text-sm text-muted-foreground text-right md:text-left">
+            We gather everything related to your job search into one place, so you can stop switching tabs and start landing interviews.
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Main feature card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="p-8 rounded-2xl bg-[#E8EDE6] dark:bg-[#131C16] border border-border flex flex-col h-full min-h-[400px]"
+          >
+             <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-white dark:bg-black rounded-full flex items-center justify-center">
+                  <Briefcase className="w-5 h-5 text-foreground" />
+                </div>
+             </div>
+             <h3 className="text-xl font-bold mb-2">New "Front-End Developer"</h3>
+             <p className="text-muted-foreground text-sm mb-6">Your job application has been successfully saved to your dashboard.</p>
+             
+             <div className="mt-auto bg-white dark:bg-[#1C261F] p-4 rounded-xl shadow-sm border border-border/50">
+               <div className="flex justify-between items-center mb-4">
+                 <div className="text-xs font-semibold text-muted-foreground">STATUS</div>
+                 <div className="text-xs font-semibold text-muted-foreground">DATE</div>
+               </div>
+               <div className="flex justify-between items-center p-3 bg-muted/30 rounded-lg">
+                 <div className="flex items-center gap-2 text-sm font-medium">
+                   <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 flex items-center justify-center text-xs">AC</div>
+                   Applied
+                 </div>
+                 <div className="text-sm text-muted-foreground">Today</div>
+               </div>
+             </div>
+          </motion.div>
+
+          {/* Side stacked feature cards */}
+          <div className="flex flex-col gap-8">
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.2, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 100 }}
-              className="p-8 rounded-2xl bg-card border border-border hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="p-8 rounded-2xl bg-[#E8EDE6] dark:bg-[#131C16] border border-border flex-1 flex flex-col justify-center"
             >
-              <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+               <div className="flex items-start gap-4 mb-4">
+                 <div className="w-10 h-10 bg-white dark:bg-black rounded-full flex items-center justify-center shrink-0">
+                   <MessageSquare className="w-5 h-5 text-blue-500" />
+                 </div>
+                 <div>
+                   <h3 className="text-base font-bold mb-1">New message from Acme Co.</h3>
+                   <p className="text-muted-foreground text-sm">"We would love to schedule an interview..."</p>
+                 </div>
+               </div>
+               <div className="bg-white dark:bg-[#1C261F] p-3 rounded-xl mt-4 border border-border/50 shadow-sm flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+                    <span className="text-xs font-bold text-blue-600">JR</span>
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-semibold">Jane Roe</span> · Recruiter
+                  </div>
+               </div>
             </motion.div>
-          ))}
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="p-8 rounded-2xl bg-[#E8EDE6] dark:bg-[#131C16] border border-border flex-1 flex flex-col justify-center"
+            >
+              <div className="flex items-start gap-4">
+                 <div className="w-10 h-10 bg-white dark:bg-black rounded-full flex items-center justify-center shrink-0">
+                   <Star className="w-5 h-5 text-yellow-500" />
+                 </div>
+                 <div>
+                   <h3 className="text-base font-bold mb-1">New strong match found</h3>
+                   <p className="text-muted-foreground text-sm">A new "Product Designer" role at Meta matches 95% of your skills.</p>
+                 </div>
+               </div>
+               <div className="bg-white dark:bg-[#1C261F] p-4 rounded-xl mt-6 border border-border/50 shadow-sm flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0">
+                      M
+                    </div>
+                    <span className="text-sm font-semibold">Meta</span>
+                  </div>
+                  <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+               </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
