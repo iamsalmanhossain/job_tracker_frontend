@@ -39,7 +39,7 @@ const LoginForm = ({ isMobile, toggleMode }: { isMobile?: boolean, toggleMode: (
       } else {
         // Fallback if structure is unknown, still redirect so the user isn't stuck
         console.warn("Unexpected response structure:", res)
-        if (token) setCredentials({}, token)
+        if (token) setCredentials({ id: '', name: '', email: '' } as any, token)
         router.push("/dashboard")
       }
     },
@@ -247,7 +247,7 @@ export default function AuthContainer({ initialMode = "login" }: { initialMode?:
   }
 
   // Define transition settings for the cross-animation
-  const crossTransition = { type: "tween", ease: "easeInOut", duration: 0.7 }
+  const crossTransition: any = { type: "tween", ease: "easeInOut", duration: 0.7 }
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#F6F8F6] dark:bg-[#0D140F] p-4 sm:p-8 lg:overflow-hidden lg:fixed lg:inset-0">

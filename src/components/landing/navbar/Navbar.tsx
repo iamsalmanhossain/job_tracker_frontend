@@ -87,13 +87,13 @@ export default function Navbar() {
               >
                 {user?.profileImage ? (
                   <img src={user.profileImage} alt="User" className="w-full h-full object-cover" />
-                ) : <span className="text-white text-sm font-bold font-sans">{user?.firstName?.charAt(0) || 'U'}</span>}
+                ) : <span className="text-white text-sm font-bold font-sans">{user?.name?.charAt(0) || 'U'}</span>}
               </button>
               
               {isDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 w-[220px] bg-white dark:bg-[#111D15] border border-border/10 rounded-xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 py-1">
                   <div className="px-3 py-2 border-b border-border/10 mb-1">
-                    <p className="text-sm font-medium text-foreground truncate">{user?.firstName} {user?.lastName}</p>
+                    <p className="text-sm font-medium text-foreground truncate">{user?.name}</p>
                     <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
                   </div>
                   <Link href="/dashboard" onClick={() => setIsDropdownOpen(false)} className="flex items-center gap-3 px-3 py-2 text-[13px] font-medium text-foreground hover:bg-[#1C3627]/5 dark:hover:bg-[#A3B18A]/10 transition-colors">
