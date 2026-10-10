@@ -1,5 +1,5 @@
-﻿import Login from "@/components/auth/Login";
+import AuthContainer from "@/components/auth/AuthContainer";
 
 export default function LoginPage() {
-  return <Login />;
+  return <AuthContainer initialMode="login" />;
 }

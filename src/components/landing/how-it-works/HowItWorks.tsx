@@ -1,58 +1,62 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Search, Briefcase, MessageSquare, Check } from "lucide-react"
 
 const steps = [
   {
-    num: "1",
-    title: "Create Your Account",
-    description: "Sign up in seconds and set up your profile."
+    icon: <Search className="w-6 h-6" />,
+    title: "Discover",
+    description: "Find the right roles. Save them in one click and never lose a great opportunity."
   },
   {
-    num: "2",
-    title: "Add Your Applications",
-    description: "Input job details, track status and set reminders."
+    icon: <Briefcase className="w-6 h-6" />,
+    title: "Apply",
+    description: "Send out applications with confidence. Keep track of what you've sent and when."
   },
   {
-    num: "3",
-    title: "Stay on Track",
-    description: "Get updates, follow up on time and land your dream job."
+    icon: <MessageSquare className="w-6 h-6" />,
+    title: "Connect",
+    description: "Follow up like a pro. Set reminders to stay on the radar of hiring managers."
+  },
+  {
+    icon: <Check className="w-6 h-6" />,
+    title: "Celebrate",
+    description: "Nail the interview and land the job. We'll be cheering for you all the way."
   }
 ]
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 md:py-32 bg-secondary/30 text-foreground">
+    <section id="how-it-works" className="py-24 md:py-32 bg-[#F6F8F6] dark:bg-[#121614] text-foreground">
       <div className="container mx-auto px-4">
-        <div className="mb-16">
-          <div className="text-sm font-semibold text-green-600 dark:text-green-500 mb-2">04 — How It Works</div>
-          <h2 className="text-4xl font-bold mb-4">Get Started in 3 Simple Steps</h2>
-          <p className="text-muted-foreground text-lg max-w-xl">
-            It only takes a few minutes to set up. Start tracking your job search and take control of your career journey.
-          </p>
-          <div className="mt-6 relative inline-block">
-            <span className="font-handwriting text-xl text-muted-foreground transform -rotate-6 inline-block">Simple steps. Big results.</span>
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="max-w-xl">
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight">A search with a little<br/>more direction.</h2>
+          </div>
+          <div className="max-w-xs text-sm text-muted-foreground text-right">
+            Turn the chaos of job hunting into a streamlined, step-by-step process that actually works.
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12 relative">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative mt-8">
           {/* Connecting line */}
-          <div className="hidden md:block absolute top-8 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-green-500/0 via-green-500/30 to-green-500/0 z-0"></div>
+          <div className="hidden lg:block absolute top-6 left-[10%] right-[10%] h-px bg-border z-0"></div>
 
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: index * 0.2, type: "spring", bounce: 0.4 }}
-              className="relative z-10 flex flex-col items-center text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15, type: "spring", bounce: 0.2 }}
+              className="relative z-10 flex flex-col items-start"
             >
-              <div className="w-16 h-16 rounded-full bg-card border-4 border-background flex items-center justify-center text-2xl font-bold text-green-600 dark:text-green-500 mb-6 shadow-xl shadow-green-900/5">
-                {step.num}
+              <div className="w-12 h-12 bg-background dark:bg-card border border-border rounded-lg flex items-center justify-center text-foreground mb-6 shadow-sm">
+                {step.icon}
               </div>
               <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-muted-foreground">{step.description}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
             </motion.div>
           ))}
         </div>

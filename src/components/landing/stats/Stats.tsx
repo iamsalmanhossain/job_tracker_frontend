@@ -1,73 +1,93 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Users, FileText, Calendar, Trophy } from "lucide-react"
-
-const stats = [
-  {
-    icon: <Users className="w-5 h-5" />,
-    value: "10,000+",
-    label: "Active Users"
-  },
-  {
-    icon: <FileText className="w-5 h-5" />,
-    value: "35,000+",
-    label: "Applications Tracked"
-  },
-  {
-    icon: <Calendar className="w-5 h-5" />,
-    value: "12,000+",
-    label: "Interviews Scheduled"
-  },
-  {
-    icon: <Trophy className="w-5 h-5" />,
-    value: "3,500+",
-    label: "Offers Received"
-  }
-]
+import { Check } from "lucide-react"
 
 export default function Stats() {
   return (
-    <section className="py-24 md:py-32 bg-background border-y border-border relative overflow-hidden">
-      <div className="absolute top-0 right-1/4 w-64 h-64 bg-green-900/10 rounded-full blur-[100px] pointer-events-none" />
+    <section className="py-24 md:py-32 bg-[#F6F8F6] dark:bg-[#121614] text-foreground relative">
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           
-          <div className="max-w-md">
-            <div className="text-sm font-semibold text-green-500 mb-2">03 — Real Impact</div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Trusted by Thousands of Job Seekers</h2>
-            <p className="text-muted-foreground">
-              From fresh graduates to experienced professionals, JobTracker is helping people land their dream jobs every day.
+          <div className="max-w-md w-full">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">See what's working.<br/>Keep moving.</h2>
+            <p className="text-muted-foreground text-lg mb-8">
+              Spot patterns, fix bottlenecks, and double down on what works. Stop guessing, start optimizing.
             </p>
+            
+            <ul className="space-y-4">
+              {[
+                "Track interview conversion rates",
+                "Find out where you drop off",
+                "Outsmart the competition"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-[#1C3627] dark:bg-[#A3B18A] flex items-center justify-center shrink-0">
+                    <Check className="w-3 h-3 text-white dark:text-[#1C3627]" />
+                  </div>
+                  <span className="text-sm font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 w-full lg:w-auto">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col items-center md:items-start relative"
-              >
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-green-500 mb-4">
-                  {stat.icon}
+          <div className="w-full max-w-xl">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white dark:bg-[#1C261F] border border-border rounded-2xl p-8 shadow-xl shadow-green-900/5"
+            >
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="font-semibold text-sm">Last 30 Days Activity</h3>
+                <span className="text-xs text-muted-foreground border border-border px-2 py-1 rounded-md">This Month v</span>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4 mb-10">
+                <div>
+                  <div className="text-4xl font-bold mb-1">18</div>
+                  <div className="text-xs text-muted-foreground">Applications</div>
                 </div>
-                <h3 className="text-3xl font-bold text-foreground mb-1">{stat.value}</h3>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-                
-                {index === stats.length - 1 && (
-                  <div className="absolute -top-10 -right-12 hidden md:block">
-                    <span className="font-handwriting text-xl text-muted-foreground transform rotate-12 inline-block">Real people.<br/>Real success.</span>
-                    <svg className="w-8 h-8 text-muted-foreground/50 transform -scale-x-100 rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                <div>
+                  <div className="text-4xl font-bold mb-1">6</div>
+                  <div className="text-xs text-muted-foreground">Interviews</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold mb-1 text-[#1C3627] dark:text-[#A3B18A]">33%</div>
+                  <div className="text-xs text-muted-foreground">Success Rate</div>
+                </div>
+              </div>
+              
+              <div className="flex items-end justify-between h-40 gap-4 mt-8 border-b border-border pb-4">
+                {/* Bar chart mockup */}
+                {[
+                  { height: '20%', label: 'Week 1' },
+                  { height: '60%', label: 'Week 2' },
+                  { height: '40%', label: 'Week 3' },
+                  { height: '80%', label: 'Week 4' },
+                ].map((bar, i) => (
+                  <div key={i} className="w-full flex flex-col items-center gap-4">
+                    <div className="w-full bg-green-100 dark:bg-green-900/30 rounded-t-sm relative h-full flex items-end">
+                       <motion.div 
+                          initial={{ height: 0 }}
+                          whileInView={{ height: bar.height }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
+                          className="w-full bg-[#1C3627] dark:bg-[#A3B18A] rounded-t-sm" 
+                       />
+                    </div>
                   </div>
-                )}
-              </motion.div>
-            ))}
+                ))}
+              </div>
+              <div className="flex justify-between mt-2">
+                 <span className="text-[10px] text-muted-foreground font-medium uppercase">Week 1</span>
+                 <span className="text-[10px] text-muted-foreground font-medium uppercase">Week 2</span>
+                 <span className="text-[10px] text-muted-foreground font-medium uppercase">Week 3</span>
+                 <span className="text-[10px] text-muted-foreground font-medium uppercase">Week 4</span>
+              </div>
+            </motion.div>
           </div>
 
         </div>
