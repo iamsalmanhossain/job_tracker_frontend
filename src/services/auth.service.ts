@@ -32,6 +32,13 @@ export const AuthService = {
   },
 
   /**
+   * Logs in an admin.
+   */
+  adminLogin: async (payload: TLogin) => {
+    return await api.post(`/auth/admin/login`, payload);
+  },
+
+  /**
    * Logs in a user using Google OAuth.
    */
   googleLogin: async (payload: TGoogleLogin) => {
