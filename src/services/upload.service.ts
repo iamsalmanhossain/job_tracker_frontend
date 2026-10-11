@@ -1,4 +1,5 @@
 import { api } from '@/lib/api';
+import { handleSessionExpired } from '@/lib/auth-utils';
 
 export interface UploadResponse {
   success: boolean;
@@ -50,6 +51,9 @@ export const UploadService = {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        handleSessionExpired(errorData?.message || 'Your session has expired. Please log in again.');
+      }
       throw new Error(errorData.message || `Upload failed with status ${response.status}`);
     }
 
