@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { BrandLogo } from "@/components/ui/brand-logo"
 import { Sun, Moon, Menu, LayoutDashboard, LogOut } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState, useRef } from "react"
@@ -17,16 +18,26 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuthStore()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    handleScroll()
+    window.addEventListener("scroll", handleScroll)
+
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false)
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
   }, [])
 
   const handleLogout = async () => {
@@ -45,24 +56,31 @@ export default function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border/10 shadow-sm"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded bg-[#1C3627] dark:bg-[#A3B18A] flex items-center justify-center">
-             <LayoutDashboard className="w-4 h-4 text-white dark:text-[#1C3627]" />
-          </div>
-          <span className="text-xl font-bold text-foreground">nextstep.</span>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 group">
+          <BrandLogo size={32} showText textClassName="text-xl font-bold group-hover:opacity-90 transition-opacity" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          {['Customers', 'Features', 'Pricing'].map((item) => (
+          {[
+            { label: 'Features', href: '#features' },
+            { label: 'Live Demo', href: '#dashboard-preview' },
+            { label: 'Architecture', href: '#architecture' },
+            { label: 'Engineer', href: '#engineer' },
+            { label: 'FAQ', href: '#faq' },
+          ].map((item) => (
             <Link
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
+              key={item.label}
+              href={item.href}
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </nav>
@@ -131,14 +149,20 @@ export default function Navbar() {
           animate={{ opacity: 1, height: "auto" }}
           className="md:hidden bg-background border-b border-border/40 px-4 py-6 flex flex-col gap-4 shadow-lg"
         >
-          {['Customers', 'Features', 'Pricing'].map((item) => (
+          {[
+            { label: 'Features', href: '#features' },
+            { label: 'Live Demo', href: '#dashboard-preview' },
+            { label: 'Architecture', href: '#architecture' },
+            { label: 'Engineer', href: '#engineer' },
+            { label: 'FAQ', href: '#faq' },
+          ].map((item) => (
             <Link
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
+              key={item.label}
+              href={item.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-base text-foreground font-medium"
+              className="text-base text-foreground font-medium py-1 hover:text-[#1C3627] dark:hover:text-[#A3B18A] transition-colors"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
           <div className="pt-4 border-t border-border/40 flex flex-col gap-4">
