@@ -40,8 +40,8 @@ const jobs = [
 
 export default function JobRecommendations() {
   return (
-    <section className="py-24 md:py-32 bg-secondary/30 text-foreground">
-      <div className="container mx-auto px-4">
+    <section className="py-12 md:py-16 bg-secondary/30 text-foreground">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row gap-12 justify-between items-start mb-16">
           <div className="max-w-md">
             <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-500 mb-2">07 — Recommended for You</div>
