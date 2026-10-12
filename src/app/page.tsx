@@ -4,7 +4,8 @@ import Features from "@/components/landing/features/Features"
 import Stats from "@/components/landing/stats/Stats"
 import HowItWorks from "@/components/landing/how-it-works/HowItWorks"
 import DashboardPreview from "@/components/landing/dashboard-preview/DashboardPreview"
-import JobRecommendations from "@/components/landing/job-recommendations/JobRecommendations"
+import TechArchitecture from "@/components/landing/architecture/TechArchitecture"
+import EngineerSpotlight from "@/components/landing/engineer/EngineerSpotlight"
 import Testimonials from "@/components/landing/testimonials/Testimonials"
 import Pricing from "@/components/landing/pricing/Pricing"
 import Faq from "@/components/landing/faq/Faq"
@@ -21,9 +22,11 @@ export default function LandingPage() {
         <Stats />
         <HowItWorks />
         <DashboardPreview />
-        <JobRecommendations />
+        <TechArchitecture />
+        <EngineerSpotlight />
         <Testimonials />
-        <Pricing />
+        {/* Pricing temporarily hidden as requested */}
+        {/* <Pricing /> */}
         <Faq />
         <Cta />
       </main>
