@@ -157,7 +157,7 @@ job_tracker_frontend/
 
 **Salman Hossain**  
 Full-Stack Software Engineer  
-- 🌐 Portfolio: [Explore Platform](https://next-job-track.vercel.app/#engineer)  
+- 🌐 Portfolio: [Explore Platform](https://iamsalmanhossain.vercel.app)  
 - 💼 GitHub: [@iamsalmanhossain](https://github.com/iamsalmanhossain)  
 - 📧 Contact: [mds619820@gmail.com](mailto:mds619820@gmail.com)
 
