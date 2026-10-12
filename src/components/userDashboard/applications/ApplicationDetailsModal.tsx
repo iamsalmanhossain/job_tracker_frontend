@@ -1,6 +1,8 @@
+import React, { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { X, Loader2, MapPin, Briefcase, Calendar, DollarSign, Globe, ExternalLink, Heart, FileText, CheckCircle2 } from "lucide-react"
+import { X, Loader2, MapPin, Briefcase, Calendar, DollarSign, Globe, ExternalLink, Heart, FileText, CheckCircle2, StickyNote } from "lucide-react"
 import { JobApplicationService } from "@/services/jobApplication.service"
+import { ApplicationNotesPanel } from "./ApplicationNotesPanel"
 import { Button } from "@/components/ui/button"
 
 interface ApplicationDetailsModalProps {
@@ -18,6 +20,7 @@ const STATUS_COLORS: Record<string, string> = {
 }
 
 export function ApplicationDetailsModal({ isOpen, onClose, appId }: ApplicationDetailsModalProps) {
+  const [activeTab, setActiveTab] = useState<'overview' | 'notes'>('overview')
   
   const { data: appData, isLoading } = useQuery({
     queryKey: ['applicationDetails', appId],
@@ -35,7 +38,31 @@ export function ApplicationDetailsModal({ isOpen, onClose, appId }: ApplicationD
         
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border/10 shrink-0">
-          <h2 className="text-xl font-bold text-foreground">Application Details</h2>
+          <div className="flex items-center gap-4">
+            <h2 className="text-xl font-bold text-foreground">Application Details</h2>
+            <div className="flex items-center bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-border/10">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                  activeTab === 'overview'
+                    ? "bg-white dark:bg-[#1C3627] text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => setActiveTab('notes')}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                  activeTab === 'notes'
+                    ? "bg-white dark:bg-[#1C3627] text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <StickyNote className="w-3.5 h-3.5" /> Notes
+              </button>
+            </div>
+          </div>
           <button onClick={onClose} className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-muted-foreground hover:text-foreground">
             <X className="w-5 h-5" />
           </button>
@@ -47,6 +74,8 @@ export function ApplicationDetailsModal({ isOpen, onClose, appId }: ApplicationD
             <div className="flex items-center justify-center h-40">
               <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
             </div>
+          ) : activeTab === 'notes' ? (
+            <ApplicationNotesPanel applicationId={appId} />
           ) : (
             <div className="space-y-8">
               

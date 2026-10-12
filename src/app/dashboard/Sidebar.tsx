@@ -14,36 +14,47 @@ import {
   ChevronRight,
   User as UserIcon,
   X,
-  LayoutDashboardIcon
+  LayoutDashboardIcon,
+  FileText,
+  Calendar,
+  Clock,
+  Bell,
+  LifeBuoy,
+  ShieldAlert
 } from "lucide-react"
 import { useAuthStore } from "@/store/auth.store"
 import { AuthService } from "@/services/auth.service"
 import { useRouter } from "next/navigation"
+import { BrandLogo } from "@/components/ui/brand-logo"
 
 const navigation = [
   { name: 'Dashboard Analytics', href: '/dashboard', icon: LayoutDashboardIcon },
   { name: 'Applications', href: '/dashboard/applications', icon: Activity },
-  { name: 'Browse', href: '/dashboard/browse', icon: Compass },
+  { name: 'Interviews', href: '/dashboard/interviews', icon: Calendar },
+  { name: 'Follow-ups', href: '/dashboard/follow-ups', icon: Clock },
+  { name: 'Resumes', href: '/dashboard/resumes', icon: FileText },
+  { name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
+  { name: 'Support', href: '/dashboard/support', icon: LifeBuoy },
 ]
 
-const spaces = [
-  {
-    name: 'My library',
-    icon: Library,
-    defaultOpen: true,
-    children: [
-      { name: 'Design Tokens', href: '/dashboard/library/tokens' },
-      { name: 'Color Palette', href: '/dashboard/library/colors' },
-      { name: 'Typography', href: '/dashboard/library/typography' },
-    ]
-  },
-  {
-    name: 'Design team',
-    icon: Users,
-    defaultOpen: false,
-    children: []
-  }
-]
+// const spaces = [
+//   {
+//     name: 'My library',
+//     icon: Library,
+//     defaultOpen: true,
+//     children: [
+//       { name: 'Design Tokens', href: '/dashboard/library/tokens' },
+//       { name: 'Color Palette', href: '/dashboard/library/colors' },
+//       { name: 'Typography', href: '/dashboard/library/typography' },
+//     ]
+//   },
+//   {
+//     name: 'Design team',
+//     icon: Users,
+//     defaultOpen: false,
+//     children: []
+//   }
+// ]
 
 export function Sidebar({
   isMobileOpen,
@@ -104,11 +115,8 @@ export function Sidebar({
     <div className="flex flex-col h-full bg-white dark:bg-[#111D15] border-r border-border/10 text-foreground w-full">
       {/* Header / Logo */}
       <div className={`flex items-center gap-3 p-4 pt-5 shrink-0 ${!isDesktopOpen && 'justify-center px-2'}`}>
-        <div className="w-6 h-6 rounded bg-gradient-to-br from-[#1C3627] to-[#A3B18A] flex items-center justify-center shrink-0">
-          <span className="text-white text-xs font-bold font-sans">NS</span>
-        </div>
-        <Link href={'/'}>
-        {isDesktopOpen && <span className="text-[15px] font-semibold text-foreground tracking-tight whitespace-nowrap">Next Step</span>}
+        <Link href="/" className="flex items-center gap-2.5">
+          <BrandLogo size={28} showText={isDesktopOpen} textClassName="text-[15px] font-bold text-foreground tracking-tight whitespace-nowrap" />
         </Link>
 
         {/* Mobile close button */}
@@ -155,17 +163,56 @@ export function Sidebar({
             </Link>
           )
         })}
+
+        {user?.role === 'ADMIN' && (
+          <div className="pt-4 mt-2 border-t border-border/10 space-y-[2px]">
+            {isDesktopOpen && (
+              <div className="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#1C3627] dark:text-[#A3B18A]">
+                Admin Operations
+              </div>
+            )}
+            {[
+              { name: 'Admin Overview', href: '/dashboard/admin', icon: ShieldAlert },
+              { name: 'User Management', href: '/dashboard/admin/users', icon: Users },
+              { name: 'Support Tickets', href: '/dashboard/admin/support', icon: LifeBuoy },
+              { name: 'Announcements', href: '/dashboard/admin/communications', icon: Bell },
+              { name: 'Audit Logs', href: '/dashboard/admin/audit-logs', icon: Activity },
+            ].map((adminItem) => {
+              const isAdminActive = pathname === adminItem.href;
+              return (
+                <Link
+                  key={adminItem.name}
+                  href={adminItem.href}
+                  className={`flex items-center gap-3 py-1.5 rounded-md text-[13px] font-medium transition-colors ${
+                    isDesktopOpen ? 'px-3' : 'justify-center px-0'
+                  } ${
+                    isAdminActive
+                      ? 'bg-[#1C3627]/10 dark:bg-[#A3B18A]/10 text-[#1C3627] dark:text-[#A3B18A]'
+                      : 'text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5 hover:text-foreground'
+                  }`}
+                >
+                  <adminItem.icon
+                    className={`w-4 h-4 shrink-0 ${
+                      isAdminActive ? 'text-[#1C3627] dark:text-[#A3B18A]' : ''
+                    }`}
+                  />
+                  {isDesktopOpen && <span className="whitespace-nowrap">{adminItem.name}</span>}
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {isDesktopOpen && (
+      {/* {isDesktopOpen && (
         <div className="mt-6 mb-2 px-6 text-[11px] font-semibold text-muted-foreground shrink-0 whitespace-nowrap">
           Spaces
         </div>
       )}
-      {!isDesktopOpen && <div className="mt-6 mb-2" />}
+      {!isDesktopOpen && <div className="mt-6 mb-2" />} */}
 
       {/* Accordions */}
-      <div className="px-3 flex-1 overflow-y-auto overflow-x-hidden space-y-[2px] custom-scrollbar">
+      {/* <div className="px-3 flex-1 overflow-y-auto overflow-x-hidden space-y-[2px] custom-scrollbar">
         {spaces.map((space) => {
           const isOpen = openSpaces[space.name]
           return (
@@ -213,7 +260,7 @@ export function Sidebar({
           <Plus className="w-4 h-4 shrink-0" />
           {isDesktopOpen && <span className="whitespace-nowrap">Add space</span>}
         </button>
-      </div>
+      </div> */}
 
       {/* User Dropdown Compact */}
       <div className="p-3 shrink-0 border-t border-border/10 mt-auto relative" ref={dropdownRef}>

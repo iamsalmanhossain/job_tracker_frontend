@@ -6,6 +6,7 @@ import { JobApplicationService } from "@/services/jobApplication.service"
 import { useAuthStore } from "@/store/auth.store"
 import { Plus, Loader2, MoreVertical, Eye, Edit, Trash2, Search, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ConfirmModal } from "@/components/ui/confirm-modal"
 import { toast } from "sonner"
 
 import { JobApplicationListItem } from "@/types/job-application.types"
@@ -36,6 +37,7 @@ export function ApplicationsPageContent() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
   const [selectedAppId, setSelectedAppId] = useState<string | null>(null)
   const [editAppId, setEditAppId] = useState<string | null>(null)
+  const [deleteAppId, setDeleteAppId] = useState<string | null>(null)
 
   const [searchTerm, setSearchTerm] = useState("")
   const [filterStatus, setFilterStatus] = useState("ALL")
@@ -59,6 +61,7 @@ export function ApplicationsPageContent() {
     mutationFn: (id: string) => JobApplicationService.delete(id),
     onSuccess: () => {
       toast.success("Application deleted successfully")
+      setDeleteAppId(null)
       queryClient.invalidateQueries({ queryKey: ['applicationsList'] })
       queryClient.invalidateQueries({ queryKey: ['applicationsStats'] })
       queryClient.invalidateQueries({ queryKey: ['dashboardData'] })
@@ -69,9 +72,7 @@ export function ApplicationsPageContent() {
   })
 
   const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this application? This action cannot be undone.")) {
-      deleteMutation.mutate(id)
-    }
+    setDeleteAppId(id)
   }
 
   const handleEdit = (id: string) => {
@@ -298,6 +299,22 @@ export function ApplicationsPageContent() {
           appId={selectedAppId} 
         />
       )}
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={Boolean(deleteAppId)}
+        onClose={() => setDeleteAppId(null)}
+        onConfirm={() => {
+          if (deleteAppId) {
+            deleteMutation.mutate(deleteAppId)
+          }
+        }}
+        title="Delete Job Application?"
+        description="Are you sure you want to delete this application? This action cannot be undone and will remove all associated logs."
+        confirmText="Delete Application"
+        isLoading={deleteMutation.isPending}
+        variant="danger"
+      />
 
     </div>
   )

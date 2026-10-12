@@ -5,9 +5,9 @@ import Link from "next/link"
 
 export default function Cta() {
   return (
-    <section className="py-24 bg-[#DCE8DB] dark:bg-[#0D140F] text-[#1C3627] dark:text-[#E8EDE6] relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 max-w-5xl mx-auto">
+    <section className="py-16 bg-[#DCE8DB] dark:bg-[#0D140F] text-[#1C3627] dark:text-[#E8EDE6] relative overflow-hidden border-t border-border/10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
           <div className="text-center md:text-left">
             <div className="text-xs font-semibold mb-2 uppercase tracking-wider text-[#1C3627]/70 dark:text-[#E8EDE6]/70">You have ambition</div>
             <h2 className="text-4xl md:text-5xl font-bold">Let's make room for it.</h2>
