@@ -2,15 +2,15 @@
 
 import React, { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { 
-  FileText, 
-  Plus, 
-  ExternalLink, 
-  Trash2, 
-  CheckCircle, 
-  Star, 
-  Calendar, 
-  Download, 
+import {
+  FileText,
+  Plus,
+  ExternalLink,
+  Trash2,
+  CheckCircle,
+  Star,
+  Calendar,
+  Download,
   Loader2,
   FileCheck2
 } from "lucide-react"
@@ -35,10 +35,10 @@ export function ResumesPageContent() {
   const resumes: Resume[] = Array.isArray(rawData)
     ? rawData
     : Array.isArray((rawData as any)?.resumes)
-    ? (rawData as any).resumes
-    : Array.isArray((rawData as any)?.data)
-    ? (rawData as any).data
-    : []
+      ? (rawData as any).resumes
+      : Array.isArray((rawData as any)?.data)
+        ? (rawData as any).data
+        : []
 
   // Delete mutation
   const deleteMutation = useMutation({
@@ -125,11 +125,10 @@ export function ResumesPageContent() {
             return (
               <div
                 key={resume.id}
-                className={`relative flex flex-col justify-between p-6 rounded-2xl bg-white dark:bg-[#111D15] border transition-all duration-200 group hover:shadow-lg ${
-                  isDefault 
-                    ? "border-[#1C3627]/40 dark:border-[#A3B18A]/40 shadow-sm" 
+                className={`relative flex flex-col justify-between p-6 rounded-2xl bg-white dark:bg-[#111D15] border transition-all duration-200 group hover:shadow-lg ${isDefault
+                    ? "border-[#1C3627]/40 dark:border-[#A3B18A]/40 shadow-sm"
                     : "border-border/20 hover:border-border/40"
-                }`}
+                  }`}
               >
                 {/* Header */}
                 <div>

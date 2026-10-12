@@ -116,12 +116,18 @@ export function FileUploader({
       const response = await UploadService.uploadFile(fileToUpload, uploadEndpoint)
       
       clearInterval(progressInterval)
-      
+      const uploadedUrl =
+        response.data?.fileUrl ||
+        response.data?.url ||
+        (response as any)?.fileUrl ||
+        (response as any)?.url ||
+        (response.data as any)?.secure_url
+
       setFiles(prev => prev.map(f => f.file === fileToUpload ? { 
         ...f, 
         status: 'success', 
         progress: 100,
-        url: response.data?.fileUrl 
+        url: uploadedUrl 
       } : f))
 
       toast.success(`${fileToUpload.name} uploaded successfully!`)
@@ -237,10 +243,10 @@ export function FileUploader({
                     ${status === 'error' ? 'border-red-500/50 bg-red-500/5' : 'border-border/40 hover:border-[#1C3627]/30 dark:hover:border-[#A3B18A]/30'}
                   `}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 overflow-hidden">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 overflow-hidden min-w-0">
                       {/* Preview / Icon */}
-                      <div className="w-12 h-12 shrink-0 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5 flex items-center justify-center border border-border/40">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5 flex items-center justify-center border border-border/40">
                         {isImage ? (
                           <img 
                             src={URL.createObjectURL(file)} 
@@ -254,19 +260,19 @@ export function FileUploader({
                       </div>
                       
                       {/* Details */}
-                      <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm font-medium text-foreground truncate max-w-[200px] sm:max-w-[300px]">
+                      <div className="flex flex-col overflow-hidden min-w-0">
+                        <span className="text-xs sm:text-sm font-medium text-foreground truncate" title={file.name}>
                           {file.name}
                         </span>
-                        <span className="text-xs text-muted-foreground flex items-center gap-2">
+                        <span className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1.5 truncate">
                           {formatBytes(file.size)}
-                          {status === 'error' && <span className="text-red-500">- {errorMessage}</span>}
+                          {status === 'error' && <span className="text-red-500 truncate">- {errorMessage}</span>}
                         </span>
                       </div>
                     </div>
                     
                     {/* Actions / Progress */}
-                    <div className="flex items-center gap-3 shrink-0 ml-4">
+                    <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                       {status === 'uploading' && <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />}
                       
                       {status === 'success' && <CheckCircle2 className="w-5 h-5 text-[#A3B18A]" />}

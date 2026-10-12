@@ -21,7 +21,7 @@ const getHeaders = (customToken?: string) => {
 let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;
 
-const requestNewToken = async (): Promise<string | null> => {
+export const requestNewToken = async (): Promise<string | null> => {
   if (isRefreshing && refreshPromise) {
     return refreshPromise;
   }
